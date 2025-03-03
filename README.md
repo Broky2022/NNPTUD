@@ -10,3 +10,8 @@
 ### CK:
 - BE: bắt buộc viết theo **mô hình service**, không viết theo MVC 60% 
 - FE: html thuần, framework của js, android, ios,... (40%) cover được 70% chức năng
+
+## Cài server API 
+> [Git](https://github.com/typicode/json-server)
+- cài: npm install json-server
+- run: npx json-server db.json

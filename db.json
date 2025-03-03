@@ -1,0 +1,17 @@
+{
+    "author": [
+      { "id": 1, "name": "Ci", "post_count": 3 },
+      { "id": 2, "name": "Ngong", "post_count": 5 },
+      { "id": 3, "name": "Pao", "post_count": 2 },
+      { "id": 4, "name": "Thuan", "post_count": 4 },
+      { "id": 5, "name": "Fuc", "post_count": 1 }
+    ],
+    "posts": [
+      { "id": 1, "author": 1, "date": "2024-02-24", "title": "Post 1", "content": "Content of post 1", "view": 150 },
+      { "id": 2, "author": 2, "date": "2024-02-23", "title": "Post 2", "content": "Content of post 2", "view": 200 },
+      { "id": 3, "author": 3, "date": "2024-02-22", "title": "Post 3", "content": "Content of post 3", "view": 120 },
+      { "id": 4, "author": 4, "date": "2024-02-21", "title": "Post 4", "content": "Content of post 4", "view": 180 },
+      { "id": 5, "author": 5, "date": "2024-02-20", "title": "Post 5", "content": "Content of post 5", "view": 90 }
+    ]
+  }
+  

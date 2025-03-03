@@ -1,53 +1,37 @@
-let keyScore1 = "Toan";
-let keyScore2 = "Tin";
-let student = function student(id, name, age, diem1, diem2) {
-    this.id = id;
-    this.name = name;
-    this.age = age;
-    this.diems = {
-        [keyScore1]: diem1,
-        [keyScore2]: diem2
-    }
-}
-let students = [];
-students.push(new student(3, 'Nguyen Van A', 17, 8, 9));
-students.push(new student(1, 'Nguyen Van B', 19, 6, 7));
-students.push(new student(2, 'Nguyen Van C', 22, 3, 4));
+let URL = "http://localhost:3000/posts";
 
-let result = students.map(function(student){
-    if(student.diems[keyScore1] + student.diems[keyScore2] >= 16){
-        return "Gioi";
-    }
-    else {
-        if(student.diems[keyScore1] + student.diems[keyScore2] >= 13){
-            return "Kha";
-        }else{
-            return "Trung binh";
+// fetch(URL).then(function(data) {
+//     return data.json();
+// }).then(function(data) {
+//     console.log(data);
+// });
+
+function load() {
+    fetch(URL).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        console.log(data);
+    });
+}
+
+async function loadSync() {
+    try {
+        let response = await fetch(URL);
+        let data = await response.json();
+        for (let i = 0; i < data.length; i++) {
+            console.log(convertFromObjToHTML(data[i]));
         }
+    } catch (error) {
+        console.log(error);
     }
-});
-
-let max = students.reduce(function(max, student){
-    return max<student.age ? student.age : max;
-}, students[0].age);
-
-//hiện hs dưới 18t 
-let duoi18 = students.filter(function(student){
-    return student.age < 18;
-});
-
-//hiện hs có điểm trung bình <8
-let checkDup = students.some(
-    function(student){
-    return student.diems[keyScore1] + student.diems[keyScore2] <8;
-});
-
-//sắp xếp hs theo tuổi, nếu = nhau thì xếp theo id
-students.sort(Compare)
-
-function Compare(student1,student2){
-    if(student1.age==student2.age){
-        return student1.id-student2.id;
-    }
-    return student1.age-student2.age;
 }
+
+function convertFromObjToHTML(post) {
+    let string = '<st>';
+    string += '<h2>' + post.title + '</h2>';
+    string += '<p>' + post.content + '</p>';
+    string += '</st>';
+    return string;
+}
+
+loadSync();
