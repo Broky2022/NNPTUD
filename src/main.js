@@ -36,16 +36,19 @@ function ConvertFromObjToHTML(post){
 }
 
 function CheckExist(id){
+    //kiểm tra id
     return global.find(function(p){
         return p.id==id
     })
 }
 function getMax(){
+    //kiểm tra id lớn nhất
     let ids = global.map(p=>Number.parseInt(p.id)); 
     return Math.max(...ids);
 }
 
 function Save(){
+    //lưu dữ liệu
     let id = document.getElementById("id").value;
     if(id.length==0||isNaN(id)){
         id = (getMax()+1)+"";
@@ -79,6 +82,7 @@ function Save(){
 }
 
 function Delete(id){
+    //xoá dữ liệu
     let post = CheckExist(id);
     if(post){
         post.isDeleted = true;
