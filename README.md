@@ -15,3 +15,4 @@
 > [Git](https://github.com/typicode/json-server)
 - cài: npm install json-server
 - run: npx json-server db.json
+- ko có node_modules: npm update (cần package.json)
