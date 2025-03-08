@@ -1,5 +1,6 @@
 # NNPTUD_ST2
 > link classroom: [Link](https://classroom.google.com/u/0/c/NzYwMTcwMTU4NTU3)
+> link git của thầy: [Link](https://github.com/nguyenthanhtunghutechsg/NNPTUD_S2/tree/main)
 ---
 ## Điểm:
 ### QT:
