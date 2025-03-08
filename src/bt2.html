@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Bài viết và Tác giả</title>
+    <script src="baitap2.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Thêm Bài Viết</h2>
+    <form onsubmit="SavePost(); return false;">
+        <label>ID:</label>
+        <input type="text" id="id" placeholder="Tự động nếu để trống">
+        <label>Tiêu đề:</label>
+        <input type="text" id="title" required>
+        <label>Lượt xem:</label>
+        <input type="number" id="views" required>
+        <label>Tác giả:</label>
+        <select id="author" required></select>
+        <label>Đã xuất bản:</label>
+        <input type="checkbox" id="isPublished">
+        <button type="submit">Lưu</button>
+    </form>
+
+    <h2>Danh sách Bài viết</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tiêu đề</th>
+                <th>Lượt xem</th>
+                <th>Tác giả</th>
+                <th>Xuất bản</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="postBody"></tbody>
+    </table>
+
+    <h2>Danh sách Tác giả</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Số bài viết</th>
+            </tr>
+        </thead>
+        <tbody id="authorBody"></tbody>
+    </table>
+</body>
+</html>
