@@ -1,5 +1,6 @@
 # NNPTUD_ST2
 > link classroom: [Link](https://classroom.google.com/u/0/c/NzYwMTcwMTU4NTU3)
+
 > link git của thầy: [Link](https://github.com/nguyenthanhtunghutechsg/NNPTUD_S2/tree/main)
 ---
 ## Điểm:
@@ -17,3 +18,8 @@
 - cài: npm install json-server
 - run: npx json-server db.json
 - ko có node_modules: npm update (cần package.json)
+
+## Một vài lệnh cmd
+- npm ls -g --depth=0   # Hiển thị danh sách package
+- npm uninstall -g <package-name>  # Gỡ từng package
+- npm cache clean --force # Xóa cache của npm
