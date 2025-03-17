@@ -3,7 +3,7 @@ let productSchema = new mongoose.Schema({
     name: {
         type: String,
         required:true,
-        unique:[true,"truong nay là unique"]
+        unique:[true,"(!) truong nay là unique"]
     },
     price: {
         type: Number,
@@ -26,6 +26,10 @@ let productSchema = new mongoose.Schema({
     category: {
         type: String,
         default:""
+    },
+    isDelete:{
+        type: Boolean,
+        default:false
     }
 },{
     timestamps:true,
