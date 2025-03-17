@@ -19,7 +19,15 @@
 - run: npx json-server db.json
 - ko có node_modules: npm update (cần package.json)
 
-## Một vài lệnh cmd
+## Một vài lệnh terminal
 - npm ls -g --depth=0   # Hiển thị danh sách package
 - npm uninstall -g <package-name>  # Gỡ từng package
 - npm cache clean --force # Xóa cache của npm
+
+## Khởi tạo dự án Express với MongoDB
+- npm i express-generator # khởi tạo Express 
+- npx express --view=pub # tạo một project Express với template engine Pug
+- npm update # Cập nhật tất cả package trong package.json lên phiên bản mới nhất
+- npm i nodemon # Cài đặt Nodemon (một công cụ tự động khởi động lại server khi có thay đổi trong code)
+- npm i mongoose # Cài đặt Mongoose (một thư viện để kết nối và làm việc với MongoDB trong Node.js)
+- npm start # chạy dự án
