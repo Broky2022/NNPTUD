@@ -30,5 +30,6 @@
 - npx express --view=pub # tạo một project Express với template engine Pug
 - npm update # Cập nhật tất cả package trong package.json lên phiên bản mới nhất
 - npm i nodemon # Cài đặt Nodemon (một công cụ tự động khởi động lại server khi có thay đổi trong code)
-- npm i mongoose # Cài đặt Mongoose (một thư viện để kết nối và làm việc với MongoDB trong Node.js)
+- npm i mongoose # Cài đặt Mongoose (một thư viện để kết nối và làm việc với MongoDB)
+- npm install bcrypt # Cài đặt bcrypt (một thư viện dùng để mã hóa (hash) mật khẩu)
 - npm start # chạy dự án
