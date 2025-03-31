@@ -7,7 +7,7 @@ let { check_authentication, check_authorization } = require("../utils/check_auth
 const constants = require('../utils/constants');
 
 /* GET users listing. */
-router.get('/', check_authentication, check_authorization(['admin'])
+router.get('/', check_authentication, check_authorization(constants.MOD_PERMISSION)
   , async function (req, res, next) {
     try {
       let users = await userControllers.getAllUsers()
@@ -19,7 +19,7 @@ router.get('/', check_authentication, check_authorization(['admin'])
       next(error)
     }
   });
-router.post('/', check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
+router.post('/', ccheck_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
   try {
     let body = req.body;
     let newUser = await userControllers.createAnUser(
@@ -40,7 +40,7 @@ router.post('/', check_authentication, check_authorization(constants.ADMIN_PERMI
   }
 
 });
-router.put('/:id', async function (req, res, next) {
+router.put('/:id',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
   try {
     let body = req.body;
     let updatedUser = await userControllers.updateAnUser(req.params.id, body);
@@ -52,7 +52,7 @@ router.put('/:id', async function (req, res, next) {
     next(error)
   }
 });
-router.delete('/:id', async function (req, res, next) {
+router.delete('/:id',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
   try {
     let deleteUser = await userControllers.deleteAnUser(req.params.id);
     res.status(200).send({

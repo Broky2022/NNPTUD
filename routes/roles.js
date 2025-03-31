@@ -42,7 +42,7 @@ router.get('/:id', async function(req, res, next) {
   });
 
 /* POST create a new role */
-router.post('/', async function(req, res, next) {
+router.post('/',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function(req, res, next) {
     try {
       let body = req.body;
       let newRole = new roleSchema({
@@ -63,7 +63,7 @@ router.post('/', async function(req, res, next) {
   });
   
   /* DELETE role */
-  router.delete('/:id', async function(req, res, next) {
+  router.delete('/:id',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function(req, res, next) {
     try {
         let id = req.params.id;
         let role = await roleSchema.findById(id);
