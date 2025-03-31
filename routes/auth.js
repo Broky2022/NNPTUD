@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 let userControllers = require('../controllers/users')
-let jwt = require('jsonwebtoken')
-let constants = require("../utils/constants")
-
+let { check_authentication } = require("../utils/check_auth")
+let jwt = require('jsonwebtoken');
+let constants = require('../utils/constants')
 
 router.post('/login', async function (req, res, next) {
     try {
@@ -36,29 +36,30 @@ router.post('/signup', async function (req, res, next) {
         next(error)
     }
 });
-router.get('/me', async function (req, res, next) {
+router.get('/me', check_authentication, async function (req, res, next) {
     try {
-        if (!req.headers || !req.headers.authorization) {
-          throw new Error("ban chua dang nhap")
-        }
-        if (!req.headers.authorization.startsWith("Bearer")) {
-          throw new Error("ban chua dang nhap")
-        }
-        let token = req.headers.authorization.split(" ")[1];
-        let result = jwt.verify(token, constants.SECRET_KEY);
-        let user_id = result.id;
-        if (result.expireIn > Date.now()) {
-          let user = await userControllers.getUserById(user_id)
-          res.send({
+        res.send({
+            success: true,
+            data: req.user
+        });
+    } catch (error) {
+        next(error)
+    }
+});
+
+router.post('/changepassword',check_authentication, async function (req, res, next) {
+    try {
+        let oldpassword = req.body.oldpassword;
+        let newpassword = req.body.newpassword;
+        
+        let user = userControllers.changePassword(req.user._id, oldpassword, newpassword);
+        res.status(200).send({
             success: true,
             data: user
-          });
-        } else {
-          throw new Error("token het han")
-        }
-      } catch (error) {
+        })
+    } catch (error) {
         next(error)
-      }
+    }
 });
 
 module.exports = router
