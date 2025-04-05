@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let { Schema } = mongoose; // Import Schema from mongoose
 
-const menuSchema = new Schema({
+let menuSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  URL: { type: String, required: true },
-  order: { type: Number, required: true },
-  parent: { type: Schema.Types.ObjectId, ref: 'Menu', default: null }
+  URL: { type: String},
+  order: { type: Number, default: 0 },
+  parent: 
+  { type: Schema.Types.ObjectId, 
+    ref: 'Menu' }
 });
 
 module.exports = mongoose.model('Menu', menuSchema);
