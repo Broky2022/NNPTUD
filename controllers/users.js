@@ -14,21 +14,24 @@ module.exports = {
     });
   },
   createAnUser: async function (username, password, email, roleI) {
+
     let role = await roleSchema.findOne({
-      name: roleI,
-    });
+        name: roleI
+    })
     if (role) {
-      let newUser = new userSchema({
-        username: username,
-        password: password,
-        email: email,
-        role: role._id,
-      });
-      return await newUser.save();
+        let newUser = new userSchema({
+            username: username,
+            password: password,
+            email: email,
+            role: role._id
+        })
+        return await newUser.save();
+
     } else {
-      throw new Error("role khong ton tai");
+        throw new Error('role khong ton tai')
     }
-  },
+
+},
   updateAnUser: async function (id, body) {
     let updatedUser = await this.getUserById(id);
     let allowFields = ["password", "email"];
@@ -64,8 +67,8 @@ module.exports = {
   },
 
   changePassword: async function (user, oldpassword, newpassword) {
-    if (bcrypt.compareSync(user.password, oldpassword)) {
-      user.password = bcrypt.hashSync(newpassword, 10);
+    if(bcrypt.compareSync(user.password,oldpassword)){
+      user.password = newpassword;
       return await user.save();
     }else{
         throw new Error("mat khau cu khong dung")
