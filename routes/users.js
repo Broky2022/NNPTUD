@@ -19,7 +19,7 @@ router.get('/', check_authentication, check_authorization(constants.MOD_PERMISSI
       next(error)
     }
   });
-router.post('/', ccheck_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
+router.post('/', check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function (req, res, next) {
   try {
     let body = req.body;
     let newUser = await userControllers.createAnUser(
