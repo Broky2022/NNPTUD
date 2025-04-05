@@ -34,5 +34,6 @@
 - npm i slugify # chuyển chuỗi thành "slug" – dạng URL thân thiện, không dấu, không ký tự lạ.
 - npm i cors # Dùng trong server Node.js/Express để bật CORS (Cross-Origin Resource Sharing) – cho phép frontend ở domain khác gọi API.
 - npm i express-validator # kiểm tra đầu vào như email, password, username, phone, v.v... để đảm bảo đúng định dạng, tránh lỗi hoặc dữ liệu xấu.
+- npm i nodemailer #  giúp gửi email dễ dàng từ server
 - npm update # Cập nhật tất cả package trong package.json lên phiên bản mới nhất
 - npm start # chạy dự án
