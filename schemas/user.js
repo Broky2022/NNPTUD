@@ -12,7 +12,9 @@ let userSchema = new mongoose.Schema({
   isDeleted: {
     type: Boolean,
     default: false
-}
+},
+ResetPasswordToken: String,
+ResetPasswordTokenExp: Date
 },{
     timestamps:true,
 });
