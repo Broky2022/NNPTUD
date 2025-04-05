@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-let categorySchema = require('../schemas/category')
+let categorySchema = require('../schemas/category');
+const { default: slugify } = require('slugify');
+const constants = require('../utils/constants');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -25,11 +27,15 @@ router.get('/:id', async function(req, res, next) {
     });
   }
 });
-router.post('/',check_authentication, check_authorization(constants.MOD_PERMISSION), async function(req, res, next) {
+router.post('/',async function(req, res, next) {
   try {
     let body = req.body;
     let newCategory = new categorySchema({
-      name:body.name
+      name: body.name,
+      slug: slugify(body.name, {
+        lower: true, //chuyển thành chữ thường
+        strict: true // loại bỏ các ký tự đặc biệt
+      }),
     });
     await newCategory.save()
     res.status(200).send({
@@ -43,7 +49,7 @@ router.post('/',check_authentication, check_authorization(constants.MOD_PERMISSI
     });
   }
 });
-router.put('/:id',check_authentication, check_authorization(constants.MOD_PERMISSION), async function(req, res, next) {
+router.put('/:id',async function(req, res, next) {
   try {
     let id = req.params.id;
     let category = await categorySchema.findById(id);
@@ -70,7 +76,7 @@ router.put('/:id',check_authentication, check_authorization(constants.MOD_PERMIS
     });
   }
 });
-router.delete('/:id',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function(req, res, next) {
+router.delete('/:id', async function(req, res, next) {
   try {
     let id = req.params.id;
     let category = await categorySchema.findById(id);
