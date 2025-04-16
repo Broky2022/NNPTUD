@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 let productSchema = require('../schemas/product')
 let categorySchema = require('../schemas/category')
+let { check_authentication, check_authorization } = require("../utils/check_auth");
+const constants = require('../utils/constants');
+const slugify = require('slugify');
+
 /* GET users listing. */
 function BuildQuery(query){
   let result = {};
@@ -52,7 +56,7 @@ router.get('/:id', async function(req, res, next) {
     });
   }
 });
-router.post('/', check_authentication, check_authorization(constants.MOD_PERMISSION), async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   try {
     let body = req.body;
     let category = body.category;
@@ -61,10 +65,14 @@ router.post('/', check_authentication, check_authorization(constants.MOD_PERMISS
     })
     if(getCategory){  
       let newProduct = new productSchema({
-        name:body.name,
-        price:body.price?body.price:0,
-        quantity:body.quantity?body.quantity:0,
-        category:getCategory._id,
+        name: body.name,
+        slug: slugify(body.name, {
+          lower: true,
+          strict: true
+        }),
+        price: body.price ? body.price : 0,
+        quantity: body.quantity ? body.quantity : 0,
+        category: getCategory._id,
       });
       await newProduct.save()
       res.status(200).send({
@@ -84,7 +92,7 @@ router.post('/', check_authentication, check_authorization(constants.MOD_PERMISS
     });
   }
 });
-router.put('/:id', check_authentication, check_authorization(constants.MOD_PERMISSION), async function(req, res, next) {
+router.put('/:id', async function(req, res, next) {
   try {
     let id = req.params.id;
     let product = await productSchema.findById(id);
@@ -120,7 +128,7 @@ router.put('/:id', check_authentication, check_authorization(constants.MOD_PERMI
     });
   }
 });
-router.delete('/:id',check_authentication, check_authorization(constants.ADMIN_PERMISSION), async function(req, res, next) {
+router.delete('/:id', async function(req, res, next) {
   try {
     let id = req.params.id;
     let product = await productSchema.findById(id);

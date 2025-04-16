@@ -7,6 +7,9 @@ let categorySchema = new mongoose.Schema({
     },description:{
         type:String,
         default:"",
+    },
+    slug:{
+        type:String
     }
     ,isDeleted:{
         type:Boolean,
