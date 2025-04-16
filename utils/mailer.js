@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 module.exports = {
     send: async function (to,url) {
         return await transporter.sendMail({
-            from: "Test Gmail",
+            from: "Hoàng Cì",
             to: to,
             subject: "Test API Reset Password",
             html: `<a href=${url}>RESET</a>`, 
