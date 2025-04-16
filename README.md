@@ -1,61 +1,83 @@
-## Mô tả
+# Dự án Quản lý RESTful API với Node.js, Express, MongoDB và React
 
-Dự án này là một hệ thống API server xây dựng bằng Node.js, Express và MongoDB, phục vụ cho việc quản lý người dùng, phân quyền, sản phẩm, danh mục, menu và xác thực người dùng. Dự án hướng tới việc cung cấp backend cho các ứng dụng web hoặc mobile cần chức năng quản lý tài khoản, sản phẩm, phân quyền và các thao tác CRUD cơ bản.
+## Tổng quan
 
-### Kiến trúc tổng thể
-- **Backend:** Node.js với Express framework.
-- **Cơ sở dữ liệu:** MongoDB, sử dụng Mongoose để định nghĩa schema và thao tác dữ liệu.
-- **Xác thực & phân quyền:** Sử dụng JWT (JSON Web Token) để xác thực, phân quyền theo vai trò (admin, mod, user).
-- **Quản lý người dùng:** Đăng ký, đăng nhập, đổi mật khẩu, quên mật khẩu (gửi email reset), phân quyền, CRUD user.
-- **Quản lý sản phẩm & danh mục:** CRUD sản phẩm, danh mục, tìm kiếm sản phẩm theo tên, lọc theo giá, liên kết sản phẩm với danh mục.
-- **Quản lý menu:** CRUD menu, hỗ trợ menu cha-con.
-- **Quản lý vai trò:** CRUD role, gán role cho user.
-- **Kiểm tra dữ liệu đầu vào:** Sử dụng express-validator để validate dữ liệu như email, password, username.
-- **Gửi email:** Sử dụng nodemailer để gửi email (ví dụ: reset mật khẩu).
-- **Mã hóa mật khẩu:** Sử dụng bcrypt để hash mật khẩu trước khi lưu vào database.
+Dự án này xây dựng hệ thống quản lý người dùng, sản phẩm, danh mục, menu, vai trò và xác thực người dùng. Backend sử dụng Node.js, Express, MongoDB (Mongoose), cung cấp các API RESTful cho frontend hoặc ứng dụng bên ngoài. Frontend mẫu sử dụng React để minh họa cách giao tiếp với backend.
 
-### Các module chính
-- **app.js:** Khởi tạo app Express, kết nối MongoDB, cấu hình middleware, khai báo các route chính.
-- **controllers/:** Xử lý logic cho từng đối tượng (user, sản phẩm, v.v.).
-- **routes/:** Định nghĩa các endpoint API cho từng chức năng (auth, users, products, categories, roles, menus).
-- **schemas/:** Định nghĩa các schema MongoDB cho user, role, product, category, menu.
-- **utils/:** Các tiện ích như xác thực, phân quyền, gửi mail, validate dữ liệu, hằng số.
+## Kiến trúc thư mục
 
-### Đối tượng quản lý
-- **User:** Đăng ký, đăng nhập, đổi mật khẩu, quên mật khẩu, phân quyền, CRUD.
-- **Role:** Quản lý vai trò, phân quyền cho user.
-- **Product:** CRUD sản phẩm, liên kết với danh mục.
-- **Category:** CRUD danh mục, liên kết với sản phẩm.
-- **Menu:** CRUD menu, hỗ trợ menu cha-con.
+```
+NNPTUD/
+├── backend/
+│   ├── app.js                # Khởi tạo app Express, middleware, kết nối MongoDB, khai báo route
+│   ├── package.json          # Thông tin package và dependencies backend
+│   ├── bin/www               # Khởi động server
+│   ├── controllers/          # Xử lý logic cho user, sản phẩm, v.v.
+│   ├── public/               # Tài nguyên tĩnh (CSS, ảnh...)
+│   ├── routes/               # Định nghĩa các endpoint API (auth, users, products, ...)
+│   ├── schemas/              # Định nghĩa schema MongoDB (user, product, ...)
+│   └── utils/                # Tiện ích: xác thực, phân quyền, gửi mail, validate, hằng số
+├── frontend/
+│   ├── package.json          # Thông tin package và dependencies frontend
+│   ├── public/               # Tài nguyên tĩnh React
+│   └── src/                  # Source code React (giao diện, gọi API, context, ...)
+└── README.md                 # Tài liệu mô tả dự án
+```
 
-### Đặc điểm nổi bật
-- Xác thực và phân quyền bảo mật bằng JWT.
-- Hỗ trợ gửi email reset mật khẩu.
-- Kiểm tra dữ liệu đầu vào chặt chẽ.
-- Mã hóa mật khẩu an toàn.
-- Kiến trúc rõ ràng, dễ mở rộng.
+## Backend
+- **Node.js + Express:** Xây dựng API RESTful.
+- **MongoDB + Mongoose:** Lưu trữ và truy vấn dữ liệu.
+- **JWT:** Xác thực và phân quyền người dùng.
+- **express-validator:** Kiểm tra dữ liệu đầu vào.
+- **bcrypt:** Mã hóa mật khẩu.
+- **nodemailer:** Gửi email (quên mật khẩu).
+- **CORS:** Cho phép frontend truy cập API.
 
-## Cài server API 
-> [Git](https://github.com/typicode/json-server)
-- cài: npm install json-server
-- run: npx json-server db.json
-- ko có node_modules: npm update (cần package.json)
+### Các chức năng chính
+- Đăng ký, đăng nhập, đổi mật khẩu, quên mật khẩu (qua email)
+- CRUD người dùng, sản phẩm, danh mục, menu, vai trò
+- Phân quyền theo vai trò (admin, user, ...)
+- Tìm kiếm, lọc sản phẩm
 
-## Một vài lệnh terminal
-- npm ls -g --depth=0   # Hiển thị danh sách package
-- npm uninstall -g <package-name>  # Gỡ từng package
-- npm cache clean --force # Xóa cache của npm
+### Các route tiêu biểu
+- `POST /auth/login` – Đăng nhập
+- `POST /auth/signup` – Đăng ký
+- `GET /products` – Lấy danh sách sản phẩm
+- `POST /products` – Thêm sản phẩm
+- `PUT /products/:id` – Sửa sản phẩm
+- `DELETE /products/:id` – Xóa sản phẩm
+- `GET /categories` – Lấy danh mục
+- ...
 
-## Khởi tạo dự án Express với MongoDB
-- npm i express-generator # khởi tạo Express 
-- npx express --view=pub # tạo một project Express với template engine Pug
-- npm i nodemon # Cài đặt Nodemon (một công cụ tự động khởi động lại server khi có thay đổi trong code)
-- npm i mongoose # Cài đặt Mongoose (một thư viện để kết nối và làm việc với MongoDB)
-- npm i bcrypt # Cài đặt bcrypt (một thư viện dùng để mã hóa (hash) mật khẩu)
-- npm i slugify # chuyển chuỗi thành "slug" – dạng URL thân thiện, không dấu, không ký tự lạ.
-- npm i cors # Dùng trong server Node.js/Express để bật CORS (Cross-Origin Resource Sharing) – cho phép frontend ở domain khác gọi API.
-- npm i express-validator # kiểm tra đầu vào như email, password, username, phone, v.v... để đảm bảo đúng định dạng, tránh lỗi hoặc dữ liệu xấu.
-- npm i nodemailer #  giúp gửi email dễ dàng từ server
-- npm i multer
-- npm update # Cập nhật tất cả package trong package.json lên phiên bản mới nhất
-- npm start # chạy dự án
+## Frontend (React)
+- Giao diện đăng nhập, hiển thị danh sách sản phẩm, CRUD sản phẩm.
+- Sử dụng axios để gọi API backend.
+- Quản lý trạng thái đăng nhập bằng React Context.
+
+## Hướng dẫn chạy dự án
+
+### 1. Cài đặt backend
+```bash
+cd backend
+npm install
+npm start
+```
+Backend mặc định chạy ở http://localhost:5000
+
+### 2. Cài đặt frontend
+```bash
+cd frontend
+npm install
+npm start
+```
+Frontend mặc định chạy ở http://localhost:3000
+
+### 3. Cấu hình kết nối
+- Đảm bảo MongoDB đang chạy local (mặc định: mongodb://localhost:27017/S2)
+- Có thể chỉnh sửa baseURL trong `frontend/src/utils/axios.js` nếu backend chạy cổng khác.
+
+## Đóng góp
+- Fork, tạo branch mới, pull request để đóng góp code.
+
+## Bản quyền
+- Sử dụng cho mục đích học tập, nghiên cứu và phát triển hệ thống quản lý RESTful API.
